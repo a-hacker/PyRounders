@@ -1,0 +1,13 @@
+[package]
+name = "PyExtension"
+version = "0.1.0"
+authors = ["a-hacker <explosivepyrounicorns@gmail.com>"]
+edition = "2018"
+
+[lib]
+name = "rounders"
+crate-type = ["cdylib"]
+
+[dependencies.pyo3]
+version = "0.7.0"
+features = ["extension-module"]
