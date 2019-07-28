@@ -29,3 +29,50 @@ fn get_negative_magnitude(num: &f64) -> i32 {
     }
     magnitude
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn get_magnitude_of_zero(){
+        let test_val: f64 = 0.0;
+        assert_eq!(get_magnitude(&test_val), 0)
+    }
+
+    #[test]
+    fn get_magnitude_of_positive_single_digit_number(){
+        let test_val: f64 = 4.0;
+        assert_eq!(get_magnitude(&test_val), 1)
+    }
+
+    #[test]
+    fn get_magnitude_of_negative_single_digit_number(){
+        let test_val: f64 = -4.0;
+        assert_eq!(get_magnitude(&test_val), 1)
+    }
+
+    #[test]
+    fn get_magnitude_of_positive_multi_digit_number(){
+        let test_val: f64 = 104.0;
+        assert_eq!(get_magnitude(&test_val), 3)
+    }
+
+    #[test]
+    fn get_magnitude_of_negative_multi_digit_number(){
+        let test_val: f64 = -104.0;
+        assert_eq!(get_magnitude(&test_val), 3)
+    }
+
+    #[test]
+    fn get_magnitude_of_positive_decimal_number(){
+        let test_val: f64 = 0.01;
+        assert_eq!(get_magnitude(&test_val), -2)
+    }
+
+    #[test]
+    fn get_magnitude_of_negative_decimal_number(){
+        let test_val: f64 = -0.01;
+        assert_eq!(get_magnitude(&test_val), -2)
+    }
+}

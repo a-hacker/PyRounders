@@ -9,6 +9,11 @@ fn get_magnitude(num: f64) -> PyResult<i32> {
 }
 
 #[pyfunction]
+fn floor(num: f64, precision: Option<i32>) -> PyResult<f64> {
+    Ok(rounders::floor(num, precision))
+}
+
+#[pyfunction]
 fn ceil(num: f64, precision: i32) -> PyResult<isize> {
     let magnitude = rounders::magnitude::get_magnitude(&num);
     // need to before decimals
@@ -24,7 +29,7 @@ fn ceil(num: f64, precision: i32) -> PyResult<isize> {
 #[pymodule]
 fn rounders(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(get_magnitude))?;
-    m.add_wrapped(wrap_pyfunction!(ceil))?;
+    m.add_wrapped(wrap_pyfunction!(floor))?;
 
     Ok(())
 }
