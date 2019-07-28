@@ -1,63 +1,19 @@
 pub mod magnitude;
 
 pub fn floor(num: f64, precision: Option<i32>) -> f64{
-    let mag = magnitude::get_magnitude(&num);
-    let round_precision = precision.unwrap_or(1);
+    let round_precision = precision.unwrap_or(0);
+    let base: f64 = 10.0;
 
-    if mag == 0 || round_precision == 0 {
-        0.0
-    } else if round_precision > 0 {
-        let int_num = num as i64;
-        let base: i64 = 10;
-        let factor: u32 = (round_precision - 1) as u32;
-        let operand: i64 = base.pow(factor);
-        let new_num = (int_num / operand * operand) as f64;
-        if num < 0.0 && num != new_num {
-            new_num - (operand as f64)
-        } else {
-            new_num
-        }
-    } else {
-        let base: f64 = 10.0;
-        let factor: i32 = round_precision.abs();
-        let operand: f64 = base.powi(factor);
-        let new_num: f64 = ((num * operand) as i64) as f64 / operand;
-        if num < 0.0 && num != new_num {
-            new_num - (1.0 / operand)
-        } else {
-            new_num
-        }
-    }
+    let temp_num = num * base.powi(-1 * round_precision);
+    temp_num.floor() * base.powi(1 * round_precision)
 }
 
 pub fn ceil(num: f64, precision: Option<i32>) -> f64{
-    let mag = magnitude::get_magnitude(&num);
-    let round_precision = precision.unwrap_or(1);
+    let round_precision = precision.unwrap_or(0);
+    let base: f64 = 10.0;
 
-    if mag == 0 || round_precision == 0 {
-        0.0
-    } else if round_precision > 0 {
-        let int_num = num as i64;
-        let base: i64 = 10;
-        let factor: u32 = (round_precision - 1) as u32;
-        let operand: i64 = base.pow(factor);
-        let new_num = (int_num / operand * operand) as f64;
-        if num > 0.0 && num != new_num {
-            new_num + (operand as f64)
-        } else {
-            new_num
-        }
-    } else {
-        let base: f64 = 10.0;
-        let factor: i32 = round_precision.abs();
-        let operand: f64 = base.powi(factor);
-        let new_num: f64 = ((num * operand) as i64) as f64 / operand;
-        if num > 0.0 && num != new_num {
-            new_num + (1.0 / operand)
-        } else {
-            new_num
-        }
-    }
+    let temp_num = num * base.powi(-1 * round_precision);
+    temp_num.ceil() * base.powi(1 * round_precision)
 }
 
 
@@ -82,7 +38,7 @@ mod floor_tests {
 
     #[test]
     fn floor_positive_number_custom_precision(){
-        assert_eq!(floor(15.3, Some(2)), 10.0)
+        assert_eq!(floor(15.3, Some(1)), 10.0)
     }
 
     #[test]
@@ -97,7 +53,7 @@ mod floor_tests {
 
     #[test]
     fn floor_negative_number_custom_precision(){
-        assert_eq!(floor(-15.3, Some(2)), -20.0)
+        assert_eq!(floor(-15.3, Some(1)), -20.0)
     }
 
     #[test]
@@ -147,7 +103,7 @@ mod ceil_tests {
 
     #[test]
     fn ceil_positive_number_custom_precision(){
-        assert_eq!(ceil(15.3, Some(2)), 20.0)
+        assert_eq!(ceil(15.3, Some(1)), 20.0)
     }
 
     #[test]
@@ -162,7 +118,7 @@ mod ceil_tests {
 
     #[test]
     fn ceil_negative_number_custom_precision(){
-        assert_eq!(ceil(-15.3, Some(2)), -10.0)
+        assert_eq!(ceil(-15.3, Some(1)), -10.0)
     }
 
     #[test]
