@@ -14,15 +14,8 @@ fn floor(num: f64, precision: Option<i32>) -> PyResult<f64> {
 }
 
 #[pyfunction]
-fn ceil(num: f64, precision: i32) -> PyResult<isize> {
-    let magnitude = rounders::magnitude::get_magnitude(&num);
-    // need to before decimals
-    if magnitude > 0 && magnitude >= precision {
-
-    } else { // need to trim decimals
-        
-    }
-    Ok(magnitude as isize)
+fn ceil(num: f64, precision: Option<i32>) -> PyResult<f64> {
+    Ok(rounders::ceil(num, precision))
 }
 
 /// This module is a python module implemented in Rust.
@@ -30,6 +23,7 @@ fn ceil(num: f64, precision: i32) -> PyResult<isize> {
 fn rounders(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(get_magnitude))?;
     m.add_wrapped(wrap_pyfunction!(floor))?;
+    m.add_wrapped(wrap_pyfunction!(ceil))?;
 
     Ok(())
 }
