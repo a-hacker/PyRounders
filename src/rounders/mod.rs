@@ -5,7 +5,7 @@ pub fn floor(num: f64, precision: Option<i32>) -> f64{
     let base: f64 = 10.0;
 
     let temp_num = num * base.powi(-1 * round_precision);
-    temp_num.floor() * base.powi(1 * round_precision)
+    temp_num.floor() * base.powi(round_precision)
 }
 
 pub fn ceil(num: f64, precision: Option<i32>) -> f64{
@@ -13,7 +13,7 @@ pub fn ceil(num: f64, precision: Option<i32>) -> f64{
     let base: f64 = 10.0;
 
     let temp_num = num * base.powi(-1 * round_precision);
-    temp_num.ceil() * base.powi(1 * round_precision)
+    temp_num.ceil() * base.powi(round_precision)
 }
 
 

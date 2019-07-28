@@ -8,7 +8,7 @@ Python's math module already has ceil and floor functions but those functions on
 
 ## Where's the Python?
 
-This library is written in rust and uses pyO3 to create a python extension. There's no real reason why rust was used. I just wanted to learn how PyO3 works.
+This library is written in rust and uses PyO3 to create a python extension. There's no real reason why rust was used. I just wanted to learn how PyO3 works.
 
 ## Should I use this library?
 
